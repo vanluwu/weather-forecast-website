@@ -105,7 +105,7 @@ body{
 .weather-box,
 .weather-details,
 .not-found {
-    overflow: hidden;
+    overflow: auto;
     visibility: hidden;
 }
 
@@ -203,13 +203,13 @@ body{
 }
 
 .weather-details i {
-    font-size: 56px;
+    font-size: 30px;
     margin-right: 10px;
 }
 
 .weather-details span {
     display: inline-block;
-    font-size: 22px;
+    font-size: 15px;
     font-weight: 500;
 }
 
