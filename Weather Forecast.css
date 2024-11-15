@@ -162,18 +162,6 @@ body{
     text-transform: capitalize;
 }
 
-.weather-box-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f8f8f8;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-
-
 .weather-details {
     position: absolute;
     bottom: 40px;
@@ -285,36 +273,4 @@ body{
 .active-clone#clone-info-humidity span,
 .active-clone#clone-info-wind span {
     transform: translateY(0%);
-}
-
-/* Remove transition for the 7-day and 24-hour forecast */
-.weather-forecast {
-    display: flex;
-    overflow: scroll;
-    flex-direction: row;
-    justify-content: space-around;
-    transition: none;  /* Disable transition for smooth scroll */
-}
-
-.weather-forecast .day,
-.weather-forecast .hour {
-    min-width: 80px;
-    padding: 10px;
-    background: rgba(255, 255, 255, .2);
-    border-radius: 10px;
-    margin: 5px;
-    text-align: center;
-}
-
-.weather-forecast .day img,
-.weather-forecast .hour img {
-    width: 50%;
-}
-
-.weather-forecast .day span,
-.weather-forecast .hour span {
-    display: block;
-    margin-top: 5px;
-    font-size: 14px;
-    font-weight: 500;
 }
