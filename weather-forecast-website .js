@@ -4,7 +4,8 @@ const weatherBox = document.querySelector('.weather-box');
 const weatherDetails = document.querySelector('.weather-details');
 const error404 = document.querySelector('.not-found');
 const cityHide = document.querySelector('.city-hide');
-
+const sevenDayForecast = document.querySelector('.seven-day-forecast');
+const hourlyForecast = document.querySelector('.hourly-forecast');
 
 search.addEventListener('click', () =>{
 
@@ -79,7 +80,49 @@ search.addEventListener('click', () =>{
         description.innerHTML = `${json.weather[0].description}`;
         humidity.innerHTML = `${json.main.humidity}%`;
         wind.innerHTML = `${parseInt(json.wind.speed)}Km/h`; 
+
+        // Hiển thị dự báo 24 giờ
+        const hourlyContainer = document.querySelector('.hourly-forecast');
+        data.hourly.slice(0, 24).forEach(hour => {
+            const hourlyItem = document.createElement('div');
+            hourlyItem.classList.add('forecast-item');
+
+            const weatherIcon = `http://openweathermap.org/img/wn/${hour.weather[0].icon}.png`;
+            const hourDate = new Date(hour.dt * 1000);
+            const hours = hourDate.getHours();
+            const minutes = hourDate.getMinutes().toString().padStart(2, '0');
+
+            hourlyItem.innerHTML = `
+                <img src="${weatherIcon}" alt="${hour.weather[0].description}">
+                <p class="time">${hours}:${minutes}</p>
+                <p class="temperature">${hour.temp}°C</p>
+                <p class="wind">Gió: ${hour.wind_speed} km/h</p>
+                <p class="humidity">Độ ẩm: ${hour.humidity}%</p>
+            `;
         
+            hourlyContainer.appendChild(hourlyItem);
+        });
+            // Hiển thị dự báo 7 ngày
+        const sevenDayContainer = document.querySelector('.seven-day-forecast');
+        data.daily.slice(0, 7).forEach(day => {
+            const forecastItem = document.createElement('div');
+            forecastItem.classList.add('forecast-item');
+        
+            const weatherIcon = `http://openweathermap.org/img/wn/${day.weather[0].icon}.png`;
+            const dayDate = new Date(day.dt * 1000);
+            const dayName = dayDate.toLocaleDateString('vi-VN', { weekday: 'short' });
+
+            forecastItem.innerHTML = `
+                <img src="${weatherIcon}" alt="${day.weather[0].description}">
+                <p class="day">${dayName}</p>
+                <p class="temperature">${day.temp.day}°C</p>
+                <p class="wind">Gió: ${day.wind_speed} km/h</p>
+                <p class="humidity">Độ ẩm: ${day.humidity}%</p>
+            `;
+        
+            sevenDayContainer.appendChild(forecastItem);
+        });
+
         const infoWeather = document.querySelector('.info-weather');
         const infoHumidity = document.querySelector('.info-humidity');
         const infoWind = document.querySelector('.info-wind');
