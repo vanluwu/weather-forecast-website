@@ -2,27 +2,67 @@ const container = document.querySelector('.container');
 const search = document.querySelector('.search-box button');
 const weatherBox = document.querySelector('.weather-box');
 const weatherDetails = document.querySelector('.weather-details');
+const hourlyForecast = document.querySelector('.hourly-forecast');
 const error404 = document.querySelector('.not-found');
 const cityHide = document.querySelector('.city-hide');
 
+function fetchHourlyForecast(city) {
+    const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
+    const hourlyContainer = document.getElementById('hourly-forecast-container');
+
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${APIKey}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.cod !== "200") {
+                console.error("Error fetching hourly forecast:", data.message);
+                return;
+            }
+            // Xóa dữ liệu cũ
+            hourlyContainer.innerHTML = "";
+            hourlyContainer.classList.add('active');
+
+
+            // Lấy 8 dự báo đầu tiên (3 giờ/lần => 24 giờ)
+            data.list.slice(0, 8).forEach((forecast) => {
+                const time = new Date(forecast.dt * 1000);
+                const hour = time.getHours().toString().padStart(2, "0") + ":00";
+                const temp = Math.round(forecast.main.temp) + "°C";
+                const icon = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
+
+                // Tạo phần tử HTML cho từng giờ
+                const hourElement = document.createElement("div");
+                hourElement.className = "hour";
+                hourElement.innerHTML = `
+                    <p>${hour}</p>
+                    <img src="${icon}" alt="${forecast.weather[0].description}">
+                    <p>${temp}</p>
+                `;
+                hourlyContainer.appendChild(hourElement);
+            });
+        })
+        .catch(error => console.error("Error fetching data:", error));
+}
 
 search.addEventListener('click', () =>{
 
     const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
     const city = document.querySelector('.search-box input').value;
 
-    if (city == '')
+    if (city === '')
         return;
+    
+        
      
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`).then(response => response.json()).then(json =>{
         if(json.cod == '404'){
             cityHide.textContent = city;
             container.style.height = '400px';
-             weatherBox.classList.remove('active');
+            weatherBox.classList.remove('active');
             weatherDetails.classList.remove('active');
             error404.classList.add('active');
             return;
         }
+        fetchHourlyForecast(city);
         
     const image = document.querySelector('.weather-box img');
     const temperature = document.querySelector('.weather-box .temperature');
