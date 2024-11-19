@@ -105,6 +105,7 @@ body{
 
 .weather-box,
 .hourly-forecast,
+.seven-day-forecast,
 .weather-details,
 .not-found {
     overflow: auto; /* Cho phép cuộn nội dung nếu vượt quá chiều cao/chiều rộng */
@@ -113,6 +114,7 @@ body{
 
 .weather-box.active,
 .hourly-forecast.active,
+.seven-day-forecast.active,
 .weather-details.active,
 .not-found.active {
     visibility: visible; /* Hiển thị khi phần tử có lớp active */
@@ -206,6 +208,69 @@ body{
     margin: 5px 0; /* Khoảng cách trên và dưới 5px */
 }
 
+/* Container của phần dự báo 7 ngày */
+.seven-day-forecast {
+    margin-top: 30px; /* Thêm khoảng cách phía trên để tách biệt với các phần tử khác */
+    padding: 20px; /* Thêm khoảng cách nội bộ bên trong container */
+    background-color: rgba(255, 255, 255, 0.9); /* Màu nền trắng với độ trong suốt 90% */
+    border-radius: 8px; /* Bo góc cho container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng bóng đổ nhẹ */
+}
+
+/* Tiêu đề của phần dự báo 7 ngày */
+.seven-day-forecast h2 {
+    font-size: 24px; /* Cỡ chữ của tiêu đề */
+    font-weight: bold; /* Đặt chữ đậm */
+    color: #333; /* Màu chữ tối */
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+    text-align: center; /* Canh giữa tiêu đề */
+}
+
+/* Các phần tử dự báo cho mỗi ngày */
+.seven-day-forecast .day {
+    display: inline-block; /* Đặt các ngày theo hàng ngang */
+    width: 13%; /* Chiều rộng mỗi ngày là 13% của container */
+    margin-right: 2%; /* Khoảng cách giữa các ngày */
+    text-align: center; /* Canh giữa nội dung bên trong mỗi ngày */
+    background-color: #f0f0f0; /* Màu nền sáng cho mỗi ngày */
+    padding: 10px; /* Khoảng cách bên trong mỗi ô ngày */
+    border-radius: 8px; /* Bo góc mỗi ô ngày */
+    transition: all 0.3s ease; /* Hiệu ứng chuyển tiếp mượt mà khi hover */
+}
+
+/* Hiệu ứng khi hover qua mỗi ngày */
+.seven-day-forecast .day:hover {
+    background-color: #e0e0e0; /* Màu nền thay đổi khi hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ khi hover */
+}
+
+/* Các đoạn văn bản bên trong mỗi ngày */
+.seven-day-forecast .day p {
+    margin: 5px 0; /* Khoảng cách giữa các đoạn văn */
+    font-size: 14px; /* Cỡ chữ của đoạn văn */
+    color: #666; /* Màu chữ nhạt cho mô tả chung */
+}
+
+/* Hình ảnh thời tiết trong mỗi ngày */
+.seven-day-forecast .day img {
+    width: 30px; /* Kích thước hình ảnh thời tiết */
+    height: 30px; /* Chiều cao hình ảnh */
+    margin-bottom: 10px; /* Khoảng cách dưới hình ảnh */
+}
+
+/* Cỡ chữ và màu sắc cho nhiệt độ mỗi ngày */
+.seven-day-forecast .day p:first-child {
+    font-size: 16px; /* Cỡ chữ lớn cho nhiệt độ */
+    font-weight: bold; /* Đặt chữ đậm cho nhiệt độ */
+    color: #333; /* Màu chữ tối cho nhiệt độ */
+}
+
+/* Cỡ chữ cho mô tả tình trạng thời tiết mỗi ngày */
+.seven-day-forecast .day p:nth-child(3) {
+    font-size: 12px; /* Cỡ chữ nhỏ hơn cho mô tả tình trạng thời tiết */
+    color: #777; /* Màu chữ nhạt cho mô tả thời tiết */
+    text-transform: capitalize; /* Chuyển đầu chữ cái của mỗi từ thành chữ hoa */
+}
 
 
 .weather-details {
@@ -300,6 +365,40 @@ body{
 #hourly-forecast-container.active {
     visibility: visible; /* Hiển thị container */
     opacity: 1; /* Đặt độ mờ là 1 (hiển thị hoàn toàn) */
+}
+
+/* Đảm bảo các phần tử hiển thị đẹp trên các màn hình nhỏ */
+@media (max-width: 768px) {
+    .seven-day-forecast .day {
+        width: 30%; /* Giảm chiều rộng mỗi ngày còn 30% trên màn hình nhỏ */
+        margin-right: 5%; /* Khoảng cách giữa các ngày tăng lên một chút */
+    }
+
+    .seven-day-forecast .day img {
+        width: 25px; /* Giảm kích thước hình ảnh xuống còn 25px */
+        height: 25px; /* Giảm chiều cao hình ảnh */
+    }
+
+    .seven-day-forecast h2 {
+        font-size: 20px; /* Giảm cỡ chữ tiêu đề xuống còn 20px */
+    }
+}
+
+/* Đảm bảo các phần tử hiển thị đẹp trên màn hình cực nhỏ (điện thoại) */
+@media (max-width: 480px) {
+    .seven-day-forecast .day {
+        width: 45%; /* Giảm chiều rộng mỗi ngày còn 45% trên màn hình rất nhỏ */
+        margin-right: 5%; /* Khoảng cách giữa các ngày tăng lên một chút */
+    }
+
+    .seven-day-forecast .day img {
+        width: 20px; /* Giảm kích thước hình ảnh xuống còn 20px */
+        height: 20px; /* Giảm chiều cao hình ảnh */
+    }
+
+    .seven-day-forecast h2 {
+        font-size: 18px; /* Giảm cỡ chữ tiêu đề xuống còn 18px */
+    }
 }
 
 #clone-info-weather,

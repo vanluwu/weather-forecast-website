@@ -3,6 +3,7 @@ const search = document.querySelector('.search-box button');
 const weatherBox = document.querySelector('.weather-box');
 const weatherDetails = document.querySelector('.weather-details');
 const hourlyForecast = document.querySelector('.hourly-forecast');
+const sevenDayForecast = document.querySelector('.seven-day-forecast');
 const error404 = document.querySelector('.not-found');
 const cityHide = document.querySelector('.city-hide');
 
@@ -43,6 +44,44 @@ function fetchHourlyForecast(city) {
         .catch(error => console.error("Error fetching data:", error));
 }
 
+function fetchSevenDayForecast(city) {
+    const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?exclude=hourly,minutely&units=metric&q=${city}&appid=${APIKey}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.cod !== 200) {  // Chỉnh lại điều kiện kiểm tra mã trạng thái
+                console.error("Error fetching 7-day forecast:", data.message);
+                return;
+            }
+
+            // Lấy 7 ngày dự báo
+            const sevenDayContainer = document.querySelector('.seven-day-forecast');
+            sevenDayContainer.innerHTML = ''; // Xóa dữ liệu cũ
+            sevenDayContainer.style.display = 'block';  // Đảm bảo rằng phần dự báo 7 ngày được hiển thị
+
+            data.daily.forEach((forecast, index) => {
+                const date = new Date(forecast.dt * 1000);
+                const day = date.toLocaleDateString('vi-VN', { weekday: 'long' });
+                const temp = Math.round(forecast.temp.day) + "°C";
+                const icon = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
+                const description = forecast.weather[0].description;
+
+                // Tạo phần tử HTML cho mỗi ngày
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day';
+                dayElement.innerHTML = `
+                    <p>${day}</p>
+                    <img src="${icon}" alt="${description}">
+                    <p>${temp}</p>
+                    <p>${description}</p>
+                `;
+                sevenDayContainer.appendChild(dayElement);
+            });
+        })
+        .catch(error => console.error("Error fetching data:", error));
+}
+
+
 search.addEventListener('click', () =>{
 
     const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
@@ -63,6 +102,7 @@ search.addEventListener('click', () =>{
             return;
         }
         fetchHourlyForecast(city);
+        fetchSevenDayForecast(city);
         
     const image = document.querySelector('.weather-box img');
     const temperature = document.querySelector('.weather-box .temperature');
@@ -88,31 +128,31 @@ search.addEventListener('click', () =>{
 
         switch (json.weather[0].main){
             case 'Clear':
-                image.src = '/Users/vanluu/Downloads/Emoji thời tiết/quang mây.png';
+                image.src = '/Users/vanluu/Downloads/3d weather icons/26.png';
                 break; 
-            case 'Drizzle':
-                image.src = '/Users/vanluu/Downloads/Emoji thời tiết/mưa phùn.png';
+            case '':
+                image.src = '/Users/vanluu/Downloads/3d weather icons/7.png';
                 break;
             case 'Clouds':
-                image.src = '/Users/vanluu/Downloads/Emoji thời tiết/có mây.png';
+                image.src = '/Users/vanluu/Downloads/3d weather icons/35.png';
                 break;
             case 'Snow':
-                image.src = '/Users/vanluu/Downloads/Emoji thời tiết/tuyết.png';
+                image.src = '/Users/vanluu/Downloads/3d weather icons/23.png';
                 break;
             case 'Fog':
-                image.src = '/Users/vanluu/Downloads/Emoji thời tiết/sương mù.png';
+                image.src = '/Users/vanluu/Downloads/3d weather icons/4.png';
                 break;
             case 'Light fog':
-                image.src = '/Users/vanluu/Downloads/Emoji thời tiết/sương mù nhẹ.png';
+                image.src = '/Users/vanluu/Downloads/3d weather icons/6.png';
                 break;
             case 'Rain':
-                image.src = '/Users/vanluu/Downloads/Emoji thời tiết/mưa.png';
+                image.src = '/Users/vanluu/Downloads/3d weather icons/39.png';
                 break;
             case 'Heavy rain':
-                image.src = '/Users/vanluu/Downloads/Emoji thời tiết/mưa lớn.png';
+                image.src = '/Users/vanluu/Downloads/3d weather icons/17.png';
                 break;
             default:
-                image.src = '/Users/vanluu/Downloads/Emoji thời tiết/mây nắng.png';
+                image.src = '/Users/vanluu/Downloads/3d weather icons/27.png';
         }
     
         temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
