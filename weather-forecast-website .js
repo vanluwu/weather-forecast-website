@@ -10,7 +10,6 @@ const cityHide = document.querySelector('.city-hide');
 function fetchHourlyForecast(city) {
     const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
     const hourlyContainer = document.getElementById('hourly-forecast-container');
-
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${APIKey}`)
         .then(response => response.json())
         .then(data => {
@@ -44,50 +43,44 @@ function fetchHourlyForecast(city) {
         .catch(error => console.error("Error fetching data:", error));
 }
 
-function fetchSevenDayForecast(city) {
-    const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
-    fetch(`https://api.openweathermap.org/data/2.5/onecall?exclude=hourly,minutely&units=metric&q=${city}&appid=${APIKey}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.cod !== 200) {  // Chỉnh lại điều kiện kiểm tra mã trạng thái
-                console.error("Error fetching 7-day forecast:", data.message);
-                return;
-            }
+function fetchClimateForecast(city) {
+    const APIKey = '5bd89646c870f9448fb8dc8539d991c6';// Thay API key hợp lệ
+    const climateContainer = document.getElementById('climate-container');
 
-            // Lấy 7 ngày dự báo
-            const sevenDayContainer = document.querySelector('.seven-day-forecast');
-            sevenDayContainer.innerHTML = ''; // Xóa dữ liệu cũ
-            sevenDayContainer.style.display = 'block';  // Đảm bảo rằng phần dự báo 7 ngày được hiển thị
+    
+                    // Xóa dữ liệu cũ
+                    climateContainer.innerHTML = "";
 
-            data.daily.forEach((forecast, index) => {
-                const date = new Date(forecast.dt * 1000);
-                const day = date.toLocaleDateString('vi-VN', { weekday: 'long' });
-                const temp = Math.round(forecast.temp.day) + "°C";
-                const icon = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
-                const description = forecast.weather[0].description;
+                    // Lặp qua dự báo (giới hạn trong 7 ngày hoặc theo dữ liệu mà API cung cấp)
+                    data.list.forEach((day) => {
+                        const date = new Date(day.dt * 1000);
+                        const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
+                        const tempMax = Math.round(day.main.temp_max) + "°C";
+                        const tempMin = Math.round(day.main.temp_min) + "°C";
+                        const icon = `https://openweathermap.org/img/wn/${day.weather[0].icon}.png`;
 
-                // Tạo phần tử HTML cho mỗi ngày
-                const dayElement = document.createElement('div');
-                dayElement.className = 'day';
-                dayElement.innerHTML = `
-                    <p>${day}</p>
-                    <img src="${icon}" alt="${description}">
-                    <p>${temp}</p>
-                    <p>${description}</p>
-                `;
-                sevenDayContainer.appendChild(dayElement);
-            });
+                        // Tạo phần tử HTML cho mỗi ngày
+                        const dayElement = document.createElement("div");
+                        dayElement.className = "day";
+                        dayElement.innerHTML = `
+                            <p>${dayName}</p>
+                            <img src="${icon}" alt="${day.weather[0].description}">
+                            <p>${tempMax} / ${tempMin}</p>
+                        `;
+                        climateContainer.appendChild(dayElement);
+                    });
+                })
+                .catch(error => console.error("Error fetching climate forecast data:", error));
         })
-        .catch(error => console.error("Error fetching data:", error));
+        .catch(error => console.error("Error fetching city data:", error));
 }
-
 
 search.addEventListener('click', () =>{
 
     const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
     const city = document.querySelector('.search-box input').value;
 
-    if (city === '')
+    if (city ==='')
         return;
     
         
@@ -101,8 +94,9 @@ search.addEventListener('click', () =>{
             error404.classList.add('active');
             return;
         }
+       
+        fetchSevenDayForecast(lat, lon);
         fetchHourlyForecast(city);
-        fetchSevenDayForecast(city);
         
     const image = document.querySelector('.weather-box img');
     const temperature = document.querySelector('.weather-box .temperature');
