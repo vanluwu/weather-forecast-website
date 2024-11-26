@@ -217,6 +217,7 @@ body{
     display: flex; /* Sử dụng Flexbox để bố trí các phần tử con */
     flex-direction: column; /* Các phần tử con sẽ xếp chồng lên nhau theo chiều dọc */
     align-items: center; /* Căn giữa các phần tử con theo chiều ngang */
+    overflow-x: auto;
 }
 
 /* Title for the forecast box */
@@ -288,7 +289,7 @@ body{
 
 .weather-details {
     position: absolute; /* Đặt vị trí tuyệt đối để định vị phần tử trong container cha */
-    bottom: -200px; /* Cách đáy container 40px */
+    bottom: -250px; /* Cách đáy container 40px */
     left: 0; /* Căn sát phần tử về phía trái */
     width: 100%; /* Chiều rộng chiếm 100% container cha */
     padding: 10 20px; /* Thêm khoảng đệm bên trong (bị thiếu giá trị cụ thể, cần sửa thành padding: 10px 20px;) */
