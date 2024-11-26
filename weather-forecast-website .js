@@ -3,7 +3,7 @@ const search = document.querySelector('.search-box button');
 const weatherBox = document.querySelector('.weather-box');
 const weatherDetails = document.querySelector('.weather-details');
 const hourlyForecast = document.querySelector('.hourly-forecast');
-const sevenDayForecast = document.querySelector('.seven-day-forecast');
+const fiveDayForecast = document.querySelector('.five-day-forecast');
 const error404 = document.querySelector('.not-found');
 const cityHide = document.querySelector('.city-hide');
 
@@ -43,37 +43,59 @@ function fetchHourlyForecast(city) {
         .catch(error => console.error("Error fetching data:", error));
 }
 
-function fetchClimateForecast(city) {
-    const APIKey = '5bd89646c870f9448fb8dc8539d991c6';// Thay API key hợp lệ
-    const climateContainer = document.getElementById('climate-container');
+function fetchFiveDayForecast(lat, lon) {
+    const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
+    const fiveDayContainer = document.getElementById('five-day-container');
 
-    
-                    // Xóa dữ liệu cũ
-                    climateContainer.innerHTML = "";
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${APIKey}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.cod !== "200") {
+                console.error("Error fetching 5-day forecast:", data.message);
+                return;
+            }
 
-                    // Lặp qua dự báo (giới hạn trong 7 ngày hoặc theo dữ liệu mà API cung cấp)
-                    data.list.forEach((day) => {
-                        const date = new Date(day.dt * 1000);
-                        const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
-                        const tempMax = Math.round(day.main.temp_max) + "°C";
-                        const tempMin = Math.round(day.main.temp_min) + "°C";
-                        const icon = `https://openweathermap.org/img/wn/${day.weather[0].icon}.png`;
+            // Xóa dữ liệu cũ
+            fiveDayContainer.innerHTML = "";
 
-                        // Tạo phần tử HTML cho mỗi ngày
-                        const dayElement = document.createElement("div");
-                        dayElement.className = "day";
-                        dayElement.innerHTML = `
-                            <p>${dayName}</p>
-                            <img src="${icon}" alt="${day.weather[0].description}">
-                            <p>${tempMax} / ${tempMin}</p>
-                        `;
-                        climateContainer.appendChild(dayElement);
-                    });
-                })
-                .catch(error => console.error("Error fetching climate forecast data:", error));
+            // Nhóm dữ liệu theo ngày
+            const dailyForecasts = {};
+            data.list.forEach((forecast) => {
+                const date = new Date(forecast.dt * 1000).toLocaleDateString("en-US");
+                if (!dailyForecasts[date]) {
+                    dailyForecasts[date] = [];
+                }
+                dailyForecasts[date].push(forecast.main.temp);
+            });
+
+            // Tính toán nhiệt độ min và max cho mỗi ngày
+            Object.keys(dailyForecasts).slice(0, 5).forEach((date) => {
+                const temps = dailyForecasts[date];
+                const tempMax = Math.round(Math.max(...temps)) + "°C";
+                const tempMin = Math.round(Math.min(...temps)) + "°C";
+
+                // Lấy biểu tượng từ forecast đầu tiên của ngày
+                const forecast = data.list.find((f) => 
+                    new Date(f.dt * 1000).toLocaleDateString("en-US") === date
+                );
+                const icon = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
+                const dayName = new Date(forecast.dt * 1000).toLocaleDateString("en-US", { weekday: "long" });
+
+                // Tạo phần tử HTML
+                const dayElement = document.createElement("div");
+                dayElement.className = "day";
+                dayElement.innerHTML = `
+                    <p>${dayName}</p>
+                    <img src="${icon}" alt="${forecast.weather[0].description}">
+                    <p>${tempMax} / ${tempMin}</p>
+                `;
+                fiveDayContainer.appendChild(dayElement);
+            });
         })
-        .catch(error => console.error("Error fetching city data:", error));
+        .catch(error => console.error("Error fetching 5-day forecast data:", error));
 }
+
+
 
 search.addEventListener('click', () =>{
 
@@ -95,7 +117,10 @@ search.addEventListener('click', () =>{
             return;
         }
        
-        fetchSevenDayForecast(lat, lon);
+        const lat = json.coord.lat;
+        const lon = json.coord.lon;
+
+        fetchFiveDayForecast(lat, lon); 
         fetchHourlyForecast(city);
         
     const image = document.querySelector('.weather-box img');
@@ -120,34 +145,8 @@ search.addEventListener('click', () =>{
             container.classList.remove('active');
         }, 2500)
 
-        switch (json.weather[0].main){
-            case 'Clear':
-                image.src = '/Users/vanluu/Downloads/3d weather icons/26.png';
-                break; 
-            case '':
-                image.src = '/Users/vanluu/Downloads/3d weather icons/7.png';
-                break;
-            case 'Clouds':
-                image.src = '/Users/vanluu/Downloads/3d weather icons/35.png';
-                break;
-            case 'Snow':
-                image.src = '/Users/vanluu/Downloads/3d weather icons/23.png';
-                break;
-            case 'Fog':
-                image.src = '/Users/vanluu/Downloads/3d weather icons/4.png';
-                break;
-            case 'Light fog':
-                image.src = '/Users/vanluu/Downloads/3d weather icons/6.png';
-                break;
-            case 'Rain':
-                image.src = '/Users/vanluu/Downloads/3d weather icons/39.png';
-                break;
-            case 'Heavy rain':
-                image.src = '/Users/vanluu/Downloads/3d weather icons/17.png';
-                break;
-            default:
-                image.src = '/Users/vanluu/Downloads/3d weather icons/27.png';
-        }
+        const icon = json.weather[0].icon;
+        image.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
     
         temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
         description.innerHTML = `${json.weather[0].description}`;

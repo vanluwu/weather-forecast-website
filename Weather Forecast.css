@@ -207,7 +207,7 @@ body{
 }
 
 /* Main container for 7-day forecast */
-.seven-day-forecast {
+.five-day-forecast {
     width: 100%; /* Chiều rộng 100% so với phần tử cha */
     margin-top: 20px; /* Khoảng cách từ phần tử phía trên */
     background-color: #f4f4f4; /* Màu nền xám nhạt cho container */
@@ -220,7 +220,7 @@ body{
 }
 
 /* Title for the forecast box */
-.seven-day-forecast h2 {
+.five-day-forecast h2 {
     font-size: 20px; /* Kích thước chữ tiêu đề là 24px */
     color: #333; /* Màu chữ là màu xám đậm */
     margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
@@ -228,7 +228,7 @@ body{
 }
 
 /* Scrollable container for the 7-day forecast */
-.seven-day-scroll {
+.five-day-scroll {
     display: flex; /* Dùng Flexbox để các phần tử con sắp xếp theo chiều ngang */
     overflow-x: auto; /* Cho phép cuộn ngang khi nội dung quá rộng */
     overflow-y: auto;
@@ -237,7 +237,7 @@ body{
 }
 
 /* Individual day block */
-.seven-day-scroll .day {
+.five-day-scroll .day {
     background-color: #fff; /* Màu nền trắng cho mỗi phần tử ngày */
     padding: 10px; /* Khoảng đệm bên trong mỗi phần tử ngày */
     border-radius: 10px; /* Bo góc tròn cho các phần tử ngày */
@@ -248,26 +248,26 @@ body{
     transition: transform 0.3s ease; /* Hiệu ứng chuyển động khi hover vào phần tử */
 }
 
-.seven-day-scroll .day:hover {
+.five-day-scroll .day:hover {
     transform: scale(1.05); /* Tăng kích thước phần tử khi hover vào */
 }
 
 /* Weather icon styling */
-.seven-day-scroll .day img {
+.five-day-scroll .day img {
     width: 50px; /* Kích thước chiều rộng của biểu tượng thời tiết */
     height: 50px; /* Kích thước chiều cao của biểu tượng thời tiết */
     margin-bottom: 10px; /* Khoảng cách dưới biểu tượng */
 }
 
 /* Day name and temperature styling */
-.seven-day-scroll .day p {
+.five-day-scroll .day p {
     margin: 5px 0; /* Khoảng cách trên/dưới mỗi đoạn văn */
     font-size: 14px; /* Kích thước chữ là 14px */
     color: #555; /* Màu chữ xám */
 }
 
 /* Max/Min temperature display */
-.seven-day-scroll .day p.temp {
+.five-day-scroll .day p.temp {
     font-size: 16px; /* Kích thước chữ cho nhiệt độ tối đa/tối thiểu là 16px */
     font-weight: bold; /* In đậm chữ */
     color: #333; /* Màu chữ là màu xám đậm */
@@ -275,12 +275,12 @@ body{
 
 /* Responsive design - ensure the layout adapts on small screens */
 @media (max-width: 600px) {
-    .seven-day-scroll {
+    .five-day-scroll {
         flex-wrap: wrap; /* Cho phép các phần tử ngày bọc xuống dòng khi không đủ không gian */
         justify-content: center; /* Căn giữa các phần tử ngày khi bọc xuống dòng */
     }
 
-    .seven-day-scroll .day {
+    .five-day-scroll .day {
         min-width: 90px; /* Giảm chiều rộng tối thiểu cho mỗi phần tử ngày trên màn hình nhỏ */
     }
 }
