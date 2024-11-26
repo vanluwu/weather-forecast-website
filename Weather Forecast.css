@@ -105,6 +105,7 @@ body{
 
 .weather-box,
 .hourly-forecast,
+.five-day-forecast,
 .weather-details,
 .not-found {
     overflow: auto; /* Cho phép cuộn nội dung nếu vượt quá chiều cao/chiều rộng */
@@ -113,6 +114,7 @@ body{
 
 .weather-box.active,
 .hourly-forecast.active,
+.five-day-forecast.active,
 .weather-details.active,
 .not-found.active {
     visibility: visible; /* Hiển thị khi phần tử có lớp active */
