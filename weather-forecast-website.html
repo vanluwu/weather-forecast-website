@@ -39,40 +39,61 @@
         <!-- thoi tiet trong 24h-->
         <div class="hourly-forecast">
             <h2>24-hour Weather Forecast</h2>
-            <div id="hourly-forecast-container" class="hourly-scroll">
-                <!-- Các giờ dự báo sẽ được thêm vào bằng JavaScript -->
-            </div>
+            <div id="hourly-forecast-container" class="hourly-scroll"></div>
         </div>
 
         <div class="five-day-forecast">
             <h2>5 Day Weather Forecast</h2>
-            <div id="five-day-container" class="five-day-scroll">
-                <!-- Các phần tử dự báo từng ngày sẽ được thêm vào đây thông qua JavaScript -->
-            </div>
+            <div id="five-day-container" class="five-day-scroll"></div>
         </div>
         
-<!-- Weather Details/ chi tiết thời tiết/ độ ẩm -->
-        <div class="weather-details">
-            <div class="humidity">
-                <i class='bx bx-water'></i> 
-                <div class="text">
-                    <div class="info-hunidity">
-                        <span>0%</span>
-                    </div>
-                    <p>Humidity</p>
+<!-- Weather Details  -->
+    <div class="weather-details">
+        <h2>Weather Details</h2>
+            <div id="weather-details-container" class="details-stack">
+        <!-- Feels Like -->
+                <div class="detail">
+                    <i class='bx bxs-thermometer'></i>
+                    <p class="label">Feels Like</p>
+                    <p class="value" id="feels-like">0°C</p>
+                </div>
+        <!-- Humidity -->
+                <div class="detail">
+                    <i class='bx bx-water'></i>
+                    <p class="label">Humidity</p>
+                    <p class="value" id="humidity">0%</p>
+                </div>
+        <!-- Wind Speed -->
+                <div class="detail">
+                    <i class='bx bx-wind'></i>
+                    <p class="label">Wind Speed</p>
+                    <p class="value" id="wind-speed">0 km/h</p>
+                </div>
+        <!-- Pressure -->
+                <div class="detail">
+                    <i class='bx bx-trending-up'></i>
+                    <p class="label">Pressure</p>
+                    <p class="value" id="pressure">0 hPa</p>
+                </div>
+        <!-- Cloudiness -->
+                <div class="detail">
+                    <i class='bx bx-cloud'></i>
+                    <p class="label">Cloudiness</p>
+                    <p class="value" id="cloudiness">0%</p>
+                </div>
+        <!-- Visibility -->
+                <div class="detail">
+                    <i class='bx bx-binoculars'></i>
+                    <p class="label">Visibility</p>
+                    <p class="value" id="visibility">0 km</p>
+                </div>
+        <!-- Precipitation -->
+                <div class="detail">
+                    <i class='bx bx-umbrella'></i>
+                    <p class="label">Precipitation</p>
+                    <p class="value" id="precipitation">0 mm</p>
                 </div>
             </div>
-          <!-- Weather Details/gió -->
-            <div class="wind">
-                <i class='bx bx-wind' ></i> 
-                <div class="text">
-                    <div class="info-wind">
-                        <span>0Km/h</span>
-                    </div>
-                    <p>Wind Speed</p>
-                </div>
-            </div>
-
         </div>
 
         <div class="not-found">
