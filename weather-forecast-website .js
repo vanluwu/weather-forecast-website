@@ -112,54 +112,52 @@ search.addEventListener('click', () =>{
         const lat = json.coord.lat;
         const lon = json.coord.lon;
 
-        fetchFiveDayForecast(lat, lon); 
-        fetchHourlyForecast(city);
-        
-    const image = document.querySelector('.weather-box img');
-    const temperature = document.querySelector('.weather-box .temperature');
-    const description = document.querySelector('.weather-box .description');
-    const humidity = document.querySelector('#humidity'); 
-    const feelsLike = document.querySelector('#feels-like')
-    const pressure = document.querySelector('#pressure');
-    const windSpeed = document.querySelector('#wind-speed');
-    const cloudiness = document.querySelector('#cloudiness');
-    const visibility = document.querySelector('#visibility');
-    const precipitation = document.querySelector('#precipitation');
-    
+        Promise.all([
+            fetchFiveDayForecast(lat, lon),
+            fetchHourlyForecast(city)
+        ]).then(() => {
+            const image = document.querySelector('.weather-box img');
+            const temperature = document.querySelector('.weather-box .temperature');
+            const description = document.querySelector('.weather-box .description');
+            const humidity = document.querySelector('#humidity');
+            const feelsLike = document.querySelector('#feels-like');
+            const pressure = document.querySelector('#pressure');
+            const windSpeed = document.querySelector('#wind-speed');
+            const cloudiness = document.querySelector('#cloudiness');
+            const visibility = document.querySelector('#visibility');
+            const precipitation = document.querySelector('#precipitation');
 
-    if (cityHide.textContent == city){
-        return;
-    }
-    else {
-        cityHide.textContent = city;
+            if (cityHide.textContent == city) {
+                return;
+            } else {
+                cityHide.textContent = city;
 
-        container.style.height = '555px';
-        container.classList.add('active');
-        weatherBox.classList.add('active');
-        weatherDetails.classList.add('active');
-        error404.classList.remove('active');
+                container.style.height = '555px';
+                container.classList.add('active');
+                weatherBox.classList.add('active');
+                weatherDetails.classList.add('active');
+                error404.classList.remove('active');
 
-        setTimeout(() => {
-            container.classList.remove('active');
-        }, 2500)
+                setTimeout(() => {
+                    container.classList.remove('active');
+                }, 2500);
 
-        const icon = json.weather[0].icon;
-        image.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-    
-        temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
-        description.innerHTML = `${json.weather[0].description}`;
-        humidity.innerHTML = `${json.main.humidity}%`;
-        feelsLike.innerHTML = `${Math.round(json.main.feels_like)}°C`;
-        pressure.innerHTML = `${json.main.pressure} hPa`;
-        windSpeed.innerHTML = `${parseInt(json.wind.speed)} m/s`;
-        cloudiness.innerHTML = `${json.clouds.all}%`;
-        visibility.innerHTML = `${(json.visibility / 1000)} km`;
-        precipitation.innerHTML = json.rain ? `${json.rain["1h"]} mm` : "0 mm";
-        
-        
-  
-    }
+                const icon = json.weather[0].icon;
+                image.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
 
+                temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
+                description.innerHTML = `${json.weather[0].description}`;
+                humidity.innerHTML = `${json.main.humidity}%`;
+                feelsLike.innerHTML = `${Math.round(json.main.feels_like)}°C`;
+                pressure.innerHTML = `${json.main.pressure} hPa`;
+                windSpeed.innerHTML = `${parseInt(json.wind.speed)} m/s`;
+                cloudiness.innerHTML = `${json.clouds.all}%`;
+                visibility.innerHTML = `${(json.visibility / 1000)} km`;
+                precipitation.innerHTML = json.rain ? `${json.rain["1h"]} mm` : "0 mm";
+            }
+        }).catch(error => {
+            console.error("Lỗi khi lấy dữ liệu thời tiết:", error);
+            // Xử lý trạng thái lỗi ở đây
+        });
     });
-
 });
