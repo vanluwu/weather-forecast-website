@@ -103,6 +103,8 @@ search.addEventListener('click', () =>{
             container.style.height = '400px';
             weatherBox.classList.remove('active');
             weatherDetails.classList.remove('active');
+            hourlyForecast.classList.remove('active');
+            fiveDayForecast.classList.remove('active')
             error404.classList.add('active');
             return;
         }
@@ -116,15 +118,14 @@ search.addEventListener('click', () =>{
     const image = document.querySelector('.weather-box img');
     const temperature = document.querySelector('.weather-box .temperature');
     const description = document.querySelector('.weather-box .description');
-    const humidity = document.querySelector('.weather-details .humidity span'); 
-    const wind = document.querySelector('.weather-details .wind span');
-    const feelsLike = document.querySelector('#feels-like');
+    const humidity = document.querySelector('#humidity'); 
+    const feelsLike = document.querySelector('#feels-like')
     const pressure = document.querySelector('#pressure');
     const windSpeed = document.querySelector('#wind-speed');
     const cloudiness = document.querySelector('#cloudiness');
     const visibility = document.querySelector('#visibility');
     const precipitation = document.querySelector('#precipitation');
-    console.log(json);
+    
 
     if (cityHide.textContent == city){
         return;
@@ -148,7 +149,6 @@ search.addEventListener('click', () =>{
         temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
         description.innerHTML = `${json.weather[0].description}`;
         humidity.innerHTML = `${json.main.humidity}%`;
-        wind.innerHTML = `${parseInt(json.wind.speed)}Km/h`; 
         feelsLike.innerHTML = `${Math.round(json.main.feels_like)}°C`;
         pressure.innerHTML = `${json.main.pressure} hPa`;
         windSpeed.innerHTML = `${parseInt(json.wind.speed)} m/s`;
@@ -156,20 +156,7 @@ search.addEventListener('click', () =>{
         visibility.innerHTML = `${(json.visibility / 1000)} km`;
         precipitation.innerHTML = json.rain ? `${json.rain["1h"]} mm` : "0 mm";
         
-        const infoWeather = document.querySelector('.info-weather');
-
-        const elCloneInfoWeather = infoWeather.cloneNode(true);
         
-        elCloneInfoWeather.id = 'clone-info-weather';
-        elCloneInfoWeather.classList.add('active-clone');
-
-        setTimeout(() => {
-            infoWeather.insertAdjacentElement("afterend", elCloneInfoWeather);
-        }, 5000);
-
-        const cloneInfoWeather = document.querySelectorAll('.info-weather.active-clone');
-        const totalCloneInfoWeather = cloneInfoWeather.length;
-        const cloneInfoWeatherFirst = cloneInfoWeather[0];
   
     }
 
