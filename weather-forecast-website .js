@@ -83,8 +83,42 @@ function fetchFiveDayForecast(lat, lon) {
                 `;
                 fiveDayContainer.appendChild(dayElement);
             });
+            fiveDayForecast.classList.add('active');
         })
         .catch(error => console.error("Error fetching 5-day forecast data:", error));
+}
+// map
+function fetchWeatherMap(lat, lon, layer, elementId) {
+    const mapContainer = document.getElementById(elementId);
+    const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
+    const mapUrl = `https://tile.openweathermap.org/map/${layer}/{z}/{x}/{y}.png?appid=${APIKey}`;
+    const z = 10; // Mức zoom mặc định
+    const x = Math.floor((lon + 180) / 360 * (1 << z)); // Chuyển đổi tọa độ
+    const y = Math.floor((1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * (1 << z));
+
+    const mapImageUrl = mapUrl.replace('{z}', z).replace('{x}', x).replace('{y}', y);
+    mapContainer.style.backgroundImage = `url(${mapImageUrl})`;
+}
+
+// Hàm lấy chỉ số chất lượng không khí
+async function fetchAirPollution(lat, lon) {
+    const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
+    const url = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${APIKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const aqi = data.list[0].main.aqi;
+    document.getElementById('air-pollution').innerText = `${aqi} AQI`;
+}
+
+// Hàm lấy chỉ số UV
+async function fetchUVIndex(lat, lon) {
+    const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
+    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    // Tính toán UV Index từ dữ liệu
+    const uvIndex = data.list[0]?.main?.uvi || "N/A";
+    document.getElementById('uv-index').innerText = `${uvIndex}`;
 }
 
 search.addEventListener('click', () =>{
@@ -95,8 +129,6 @@ search.addEventListener('click', () =>{
     if (city ==='')
         return;
     
-        
-     
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`).then(response => response.json()).then(json =>{
         if(json.cod == '404'){
             cityHide.textContent = city;
@@ -104,7 +136,7 @@ search.addEventListener('click', () =>{
             weatherBox.classList.remove('active');
             weatherDetails.classList.remove('active');
             hourlyForecast.classList.remove('active');
-            fiveDayForecast.classList.remove('active')
+            fiveDayForecast.classList.remove('active');
             error404.classList.add('active');
             return;
         }
@@ -112,52 +144,57 @@ search.addEventListener('click', () =>{
         const lat = json.coord.lat;
         const lon = json.coord.lon;
 
-        Promise.all([
-            fetchFiveDayForecast(lat, lon),
-            fetchHourlyForecast(city)
-        ]).then(() => {
-            const image = document.querySelector('.weather-box img');
-            const temperature = document.querySelector('.weather-box .temperature');
-            const description = document.querySelector('.weather-box .description');
-            const humidity = document.querySelector('#humidity');
-            const feelsLike = document.querySelector('#feels-like');
-            const pressure = document.querySelector('#pressure');
-            const windSpeed = document.querySelector('#wind-speed');
-            const cloudiness = document.querySelector('#cloudiness');
-            const visibility = document.querySelector('#visibility');
-            const precipitation = document.querySelector('#precipitation');
+        fetchFiveDayForecast(lat, lon);
+        fetchHourlyForecast(city);
+        fetchWeatherMap(lat, lon, 'precipitation_new', 'precipitation-map');
+        fetchWeatherMap(lat, lon, 'pressure_new', 'pressure-map');
+        fetchWeatherMap(lat, lon, 'wind_new', 'wind-speed-map');
+        fetchWeatherMap(lat, lon, 'temp_new', 'temperature-map');
+            // Gọi chỉ số chất lượng không khí và UV
+        fetchAirPollution(lat, lon);
+        fetchUVIndex(lat, lon);
+    
+        const image = document.querySelector('.weather-box img');
+        const temperature = document.querySelector('.weather-box .temperature');
+        const description = document.querySelector('.weather-box .description');
+        const humidity = document.querySelector('#humidity');
+        const feelsLike = document.querySelector('#feels-like');
+        const pressure = document.querySelector('#pressure');
+        const windSpeed = document.querySelector('#wind-speed');
+        const cloudiness = document.querySelector('#cloudiness');
+        const visibility = document.querySelector('#visibility');
+        const precipitation = document.querySelector('#precipitation');
 
-            if (cityHide.textContent == city) {
-                return;
-            } else {
-                cityHide.textContent = city;
+        if (cityHide.textContent == city) {
+            return;
+        } else {
+            cityHide.textContent = city;
 
-                container.style.height = '555px';
-                container.classList.add('active');
-                weatherBox.classList.add('active');
-                weatherDetails.classList.add('active');
-                error404.classList.remove('active');
+            container.style.height = '555px';
+            container.classList.add('active');
+            weatherBox.classList.add('active');
+            weatherDetails.classList.add('active');
+            hourlyForecast.classList.add('active');
+            fiveDayForecast.classList.add('active');
+            error404.classList.remove('active');
 
-                setTimeout(() => {
-                    container.classList.remove('active');
-                }, 2500);
+            setTimeout(() => {
+                container.classList.remove('active');
+            }, 2500);
 
-                const icon = json.weather[0].icon;
-                image.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+            const icon = json.weather[0].icon;
+            image.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
 
-                temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
-                description.innerHTML = `${json.weather[0].description}`;
-                humidity.innerHTML = `${json.main.humidity}%`;
-                feelsLike.innerHTML = `${Math.round(json.main.feels_like)}°C`;
-                pressure.innerHTML = `${json.main.pressure} hPa`;
-                windSpeed.innerHTML = `${parseInt(json.wind.speed)} m/s`;
-                cloudiness.innerHTML = `${json.clouds.all}%`;
-                visibility.innerHTML = `${(json.visibility / 1000)} km`;
-                precipitation.innerHTML = json.rain ? `${json.rain["1h"]} mm` : "0 mm";
-            }
-        }).catch(error => {
-            console.error("Lỗi khi lấy dữ liệu thời tiết:", error);
-            // Xử lý trạng thái lỗi ở đây
+            temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
+            description.innerHTML = `${json.weather[0].description}`;
+            humidity.innerHTML = `${json.main.humidity}%`;
+            feelsLike.innerHTML = `${Math.round(json.main.feels_like)}°C`;
+            pressure.innerHTML = `${json.main.pressure} hPa`;
+            windSpeed.innerHTML = `${parseInt(json.wind.speed)} m/s`;
+            cloudiness.innerHTML = `${json.clouds.all}%`;
+            visibility.innerHTML = `${(json.visibility / 1000)} km`;
+            precipitation.innerHTML = json.rain ? `${json.rain["1h"]} mm` : "0 mm";
+        }
+        
         });
-    });
 });

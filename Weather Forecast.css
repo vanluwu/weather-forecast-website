@@ -279,71 +279,82 @@ body{
     }
 }
 
+/* Weather Details Section */
 .weather-details {
-    position: relative;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.1); /* Màu nền tương tự các phần tử khác */
-    padding: 20px; /* Khoảng đệm bên trong */
-    border-radius: 10px; /* Bo góc tròn */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ */
-    text-align: center; /* Căn giữa nội dung */
-    margin-top: 20px; /* Khoảng cách phía trên */
-    visibility: hidden; /* Mặc định ẩn đi */
-    opacity: 0; /* Đặt độ mờ là 0 */
-    transition: visibility 0.3s, opacity 0.3s ease-in-out; /* Hiệu ứng chuyển đổi */
-}
-
-.weather-details.active {
-    visibility: visible; /* Hiển thị khi có lớp active */
-    opacity: 1; /* Đặt độ mờ là 1 khi hiển thị */
+    display: grid;
+    padding: 20px;
+    background: #ffffff; /* Màu nền trắng hiện đại */
+    border-radius: 15px;
+    margin: 20px 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Đổ bóng nhẹ */
 }
 
 .weather-details h2 {
-    font-size: 24px; /* Kích thước chữ cho tiêu đề */
-    font-weight: 700; /* Độ đậm chữ */
-    color: #020101; /* Màu chữ tối */
-    margin-bottom: 15px; /* Khoảng cách dưới tiêu đề */
+    font-size: 18px;
+    font-weight: 600;
+    color: #333333; /* Màu chữ đậm */
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 1px solid #e3e4e8;
+    padding-bottom: 10px;
 }
 
-.weather-details .details {
-    display: flex; /* Sử dụng Flexbox để căn chỉnh các phần tử con */
-    justify-content: space-around; /* Chia đều không gian giữa các phần tử */
-    gap: 15px; /* Khoảng cách giữa các phần tử */
-    flex-wrap: wrap; /* Cho phép các phần tử xuống dòng khi không gian không đủ */
+/* Chi tiết từng mục */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); /* 2 cột */
+    gap: 15px; /* Khoảng cách giữa các ô */
 }
 
-.weather-details .details .detail {
-    background-color: rgba(255, 255, 255, 0.2); /* Màu nền cho các chi tiết */
-    padding: 10px; /* Khoảng đệm bên trong */
-    border-radius: 10px; /* Bo góc tròn */
-    text-align: center; /* Căn giữa */
-    width: 120px; /* Đặt chiều rộng cố định cho mỗi chi tiết */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ nhẹ */
+.detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background: #f8f9fa; /* Nền xám nhạt */
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.weather-details .details .detail img {
-    width: 50px; /* Kích thước ảnh thời tiết */
-    height: 50px;
-    margin-bottom: 10px; /* Khoảng cách dưới ảnh */
+.detail:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.weather-details .details .detail p {
-    font-size: 16px; /* Kích thước chữ cho nội dung chi tiết */
-    color: #050505; /* Màu chữ tối */
-    font-weight: 500; /* Độ đậm chữ vừa phải */
+.detail i {
+    font-size: 24px;
+    color: #007aff; /* Xanh iOS */
+    margin-right: 10px;
 }
 
-.weather-details .details .detail .temp {
-    font-size: 18px; /* Kích thước chữ cho nhiệt độ */
-    font-weight: bold; /* In đậm chữ */
-    color: #030303; /* Màu chữ đậm */
+.detail .label {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 5px;
+    font-weight: 500;
 }
 
-.weather-details .details .detail .label {
-    font-size: 14px; /* Kích thước chữ cho nhãn */
-    color: #9FB6CD; /* Màu chữ xanh nhạt */
-    text-transform: capitalize; /* Chữ hoa đầu dòng */
+.detail .value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
 }
+
+/* Map Container (Tùy chọn nếu hiển thị bản đồ) */
+.detail .map {
+    width: 100%;
+    height: 200px;
+    background: #e9ecef; /* Placeholder màu xám */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #666666;
+    text-align: center;
+}
+
 
 
 .not-found {
@@ -401,5 +412,4 @@ body{
 .active-clone#clone-info-weather .weather {
     transform: translateY(0%); /* Hiển thị bằng cách đặt lại vị trí ban đầu */
 }
-
 
