@@ -6,6 +6,10 @@ const hourlyForecast = document.querySelector('.hourly-forecast');
 const fiveDayForecast = document.querySelector('.five-day-forecast');
 const error404 = document.querySelector('.not-found');
 const cityHide = document.querySelector('.city-hide');
+weatherBox.classList.add('hidden');
+weatherDetails.classList.add('hidden');
+hourlyForecast.classList.add('hidden');
+fiveDayForecast.classList.add('hidden');
 
 function fetchHourlyForecast(city) {
     const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
@@ -53,7 +57,7 @@ function fetchFiveDayForecast(lat, lon) {
             }
 
             fiveDayContainer.innerHTML = "";
-
+            fiveDayForecast.classList.add('active');
             const dailyForecasts = {};
             data.list.forEach((forecast) => {
                 const date = new Date(forecast.dt * 1000).toLocaleDateString("en-US");
@@ -83,7 +87,6 @@ function fetchFiveDayForecast(lat, lon) {
                 `;
                 fiveDayContainer.appendChild(dayElement);
             });
-            fiveDayForecast.classList.add('active');
         })
         .catch(error => console.error("Error fetching 5-day forecast data:", error));
 }
@@ -92,7 +95,7 @@ function fetchWeatherMap(lat, lon, layer, elementId) {
     const mapContainer = document.getElementById(elementId);
     const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
     const mapUrl = `https://tile.openweathermap.org/map/${layer}/{z}/{x}/{y}.png?appid=${APIKey}`;
-    const z = 10; // Mức zoom mặc định
+    const z = 1; 
     const x = Math.floor((lon + 180) / 360 * (1 << z)); // Chuyển đổi tọa độ
     const y = Math.floor((1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * (1 << z));
 
@@ -100,7 +103,6 @@ function fetchWeatherMap(lat, lon, layer, elementId) {
     mapContainer.style.backgroundImage = `url(${mapImageUrl})`;
 }
 
-// Hàm lấy chỉ số chất lượng không khí
 async function fetchAirPollution(lat, lon) {
     const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
     const url = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${APIKey}`;
@@ -108,17 +110,6 @@ async function fetchAirPollution(lat, lon) {
     const data = await response.json();
     const aqi = data.list[0].main.aqi;
     document.getElementById('air-pollution').innerText = `${aqi} AQI`;
-}
-
-// Hàm lấy chỉ số UV
-async function fetchUVIndex(lat, lon) {
-    const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
-    const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${APIKey}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    // Tính toán UV Index từ dữ liệu
-    const uvIndex = data.list[0]?.main?.uvi || "N/A";
-    document.getElementById('uv-index').innerText = `${uvIndex}`;
 }
 
 search.addEventListener('click', () =>{
@@ -150,20 +141,20 @@ search.addEventListener('click', () =>{
         fetchWeatherMap(lat, lon, 'pressure_new', 'pressure-map');
         fetchWeatherMap(lat, lon, 'wind_new', 'wind-speed-map');
         fetchWeatherMap(lat, lon, 'temp_new', 'temperature-map');
-            // Gọi chỉ số chất lượng không khí và UV
         fetchAirPollution(lat, lon);
-        fetchUVIndex(lat, lon);
-    
+        
         const image = document.querySelector('.weather-box img');
         const temperature = document.querySelector('.weather-box .temperature');
         const description = document.querySelector('.weather-box .description');
         const humidity = document.querySelector('#humidity');
         const feelsLike = document.querySelector('#feels-like');
-        const pressure = document.querySelector('#pressure');
-        const windSpeed = document.querySelector('#wind-speed');
+        const pressureMap = document.querySelector('#pressure-map');
+        const windSpeedMap = document.querySelector('#wind-speed-map');
         const cloudiness = document.querySelector('#cloudiness');
         const visibility = document.querySelector('#visibility');
-        const precipitation = document.querySelector('#precipitation');
+        const precipitationMap = document.querySelector('#precipitation-map');
+        const temperatureMap = document.querySelector('#temperature-map');
+        
 
         if (cityHide.textContent == city) {
             return;
@@ -189,11 +180,12 @@ search.addEventListener('click', () =>{
             description.innerHTML = `${json.weather[0].description}`;
             humidity.innerHTML = `${json.main.humidity}%`;
             feelsLike.innerHTML = `${Math.round(json.main.feels_like)}°C`;
-            pressure.innerHTML = `${json.main.pressure} hPa`;
-            windSpeed.innerHTML = `${parseInt(json.wind.speed)} m/s`;
+            pressureMap.innerHTML = `${json.main.pressure} hPa`;
+            windSpeedMap.innerHTML = `${parseInt(json.wind.speed)} m/s`;
             cloudiness.innerHTML = `${json.clouds.all}%`;
             visibility.innerHTML = `${(json.visibility / 1000)} km`;
-            precipitation.innerHTML = json.rain ? `${json.rain["1h"]} mm` : "0 mm";
+            precipitationMap.innerHTML = json.rain ? `${json.rain["1h"]} mm` : "0 mm";
+            temperatureMap.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
         }
         
         });

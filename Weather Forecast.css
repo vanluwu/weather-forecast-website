@@ -43,7 +43,7 @@ body{
     border: 2px solid rgba(255, 255, 255, .2);
     border-radius: 16px;
     padding: 20px;
-    color: #1C1C1C;
+    color: #121111;
     overflow-y: auto;
     transition: height .6s ease;
 
@@ -97,7 +97,9 @@ body{
     padding: 0 40px 0 5px; 
     cursor: pointer; 
 }
-
+.hidden {
+    display: none;
+}
 .weather-box {
     text-align: center; 
     margin-bottom: 20px; 
@@ -166,7 +168,12 @@ body{
     text-align: center; 
     margin-bottom: 20px; 
 }
-
+.hourly-forecast.h2 {
+    font-size: 20px; /* Kích thước chữ tiêu đề là 24px */
+    color: #2c2b2b; /* Màu chữ là màu xám đậm */
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+    text-align: center; /* Căn giữa tiêu đề */
+}
 .hourly-scroll {
     display: flex; 
     gap: 10px; 
@@ -195,6 +202,7 @@ body{
 .hourly-scroll .hour p {
     font-size: 14px; 
     margin: 5px 0; 
+    color :#040404
 }
 
 /* Main container for 7-day forecast */
@@ -216,7 +224,7 @@ body{
 /* Title for the forecast box */
 .five-day-forecast h2 {
     font-size: 20px; /* Kích thước chữ tiêu đề là 24px */
-    color: #020101; /* Màu chữ là màu xám đậm */
+    color: #2c2b2b; /* Màu chữ là màu xám đậm */
     margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
     text-align: center; /* Căn giữa tiêu đề */
 }
@@ -257,7 +265,7 @@ body{
 .five-day-scroll .day p {
     margin: 5px 0; /* Khoảng cách trên/dưới mỗi đoạn văn */
     font-size: 14px; /* Kích thước chữ là 14px */
-    color: #050505; /* Màu chữ xám */
+    color: #090909; /* Màu chữ xám */
 }
 
 /* Max/Min temperature display */
@@ -283,19 +291,19 @@ body{
 .weather-details {
     display: grid;
     padding: 20px;
-    background: #ffffff; /* Màu nền trắng hiện đại */
+    background-color: rgba(255, 255, 255, 0.1); /* Màu nền trắng hiện đại */
     border-radius: 15px;
     margin: 20px 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Đổ bóng nhẹ */
 }
 
 .weather-details h2 {
-    font-size: 18px;
+    font-size: 20px; /* Kích thước chữ tiêu đề là 24px */
+    color: #181717; /* Màu chữ là màu xám đậm */
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+    text-align: center; 
     font-weight: 600;
-    color: #333333; /* Màu chữ đậm */
-    margin-bottom: 15px;
-    text-align: center;
-    border-bottom: 1px solid #e3e4e8;
+    border-bottom: 1px solid #4d4e4f;
     padding-bottom: 10px;
 }
 
@@ -311,7 +319,7 @@ body{
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    background: #f8f9fa; /* Nền xám nhạt */
+    background-color: rgba(255, 255, 255, 0.1); /* Nền xám nhạt */
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -324,13 +332,13 @@ body{
 
 .detail i {
     font-size: 24px;
-    color: #007aff; /* Xanh iOS */
+    color: #103667; /* Xanh iOS */
     margin-right: 10px;
 }
 
 .detail .label {
     font-size: 14px;
-    color: #666666;
+    color: #070707;
     margin-bottom: 5px;
     font-weight: 500;
 }
