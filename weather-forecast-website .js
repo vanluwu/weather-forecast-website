@@ -6,10 +6,6 @@ const hourlyForecast = document.querySelector('.hourly-forecast');
 const fiveDayForecast = document.querySelector('.five-day-forecast');
 const error404 = document.querySelector('.not-found');
 const cityHide = document.querySelector('.city-hide');
-weatherBox.classList.add('hidden');
-weatherDetails.classList.add('hidden');
-hourlyForecast.classList.add('hidden');
-fiveDayForecast.classList.add('hidden');
 
 function fetchHourlyForecast(city) {
     const APIKey = '5bd89646c870f9448fb8dc8539d991c6';

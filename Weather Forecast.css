@@ -5,7 +5,6 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
-
 body{
     display: flex;
     justify-content: center;
@@ -16,7 +15,6 @@ body{
     background-position: center;
     overflow: hidden;
 }
-
 .video-background {
     position: fixed;
     top: 0;
@@ -26,13 +24,11 @@ body{
     overflow: hidden;
     z-index: -1; 
 }
-
 .video-background video {
     width: 100%;
     height: 100%;
     object-fit: cover; 
 }
-
 .container {
     position: relative;
     z-index: 1;
@@ -46,9 +42,7 @@ body{
     color: #121111;
     overflow-y: auto;
     transition: height .6s ease;
-
 }
-
 .search-box {
     position: relative;
     width: 100%;
@@ -56,14 +50,11 @@ body{
     display: flex;
     align-items: center;
 }
-
 .search-box i {
     position: absolute;
     left: 10px;
     font-size: 28px;
-
 }
-
 .search-box input{
     position: absolute;
     width: 100%;
@@ -78,12 +69,10 @@ body{
     text-transform: uppercase;
     padding: 0 48px 0 42px;
 }
-
 .search-box input::placeholder {
     color: #faf8f8; 
     text-transform: capitalize; 
 }
-
 .search-box button {
     position: absolute; 
     right: 0; 
@@ -97,52 +86,45 @@ body{
     padding: 0 40px 0 5px; 
     cursor: pointer; 
 }
-.hidden {
-    display: none;
-}
 .weather-box {
     text-align: center; 
     margin-bottom: 20px; 
 }
-
 .weather-box,
 .hourly-forecast,
+.five-day-forecast,
+.weather-details,
 .not-found {
-    overflow: auto; /* Cho phép cuộn nội dung nếu vượt quá chiều cao/chiều rộng */
-    visibility: hidden; /* Ẩn các phần tử này (không hiển thị) */
+    overflow: auto; 
+    visibility: hidden; 
 }
-
 .weather-box.active,
 .hourly-forecast.active,
+.five-day-forecast.active,
+.weather-details.active,
 .not-found.active {
-    visibility: visible; /* Hiển thị khi phần tử có lớp active */
+    visibility: visible; 
 }
-
 .weather-box.active .box,
 .not-found.active .box {
     transform: translateY(0%); 
     transition: transform 1s ease; 
     transition-delay: .6s; 
 }
-
 .weather-box .box .info-weather {
     transform: translateY(-120%); 
 }
-
 .container.active .weather-box .box .info-weather{
-    transform: translateY(0%); /* Đưa nội dung trở lại vị trí ban đầu khi container có lớp active */
-    transition: transform 1s ease; /* Hiệu ứng chuyển động trong 1 giây */
+    transform: translateY(0%);  
+    transition: transform 1s ease; 
 }
-
 .weather-box .box,
 .not-found .box {
     transform: translateY(0%); 
 }
-
 .weather-box img {
     width: 60%; 
 }
-
 .weather-box.temperature {
     position: relative; 
     font-size: 64px; 
@@ -150,29 +132,33 @@ body{
     font-weight: 700; 
     margin: 20px 0 6px -30px; 
 }
-
 .weather-box.temperature span {
     position: absolute; 
     font-size: 24px; 
     margin-left: 4px; 
 }
-
 .weather-box.description {
     font-size: 22px; 
     font-weight: 500; 
     text-transform: capitalize; 
 }
-
 .hourly-forecast {
     margin-top: 20px; 
     text-align: center; 
     margin-bottom: 20px; 
+    width: 100%; 
+    flex-direction: column; 
+    background-color: rgba(255, 255, 255, 0.1); 
+    padding: 20px;
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    display: flex; 
 }
-.hourly-forecast.h2 {
-    font-size: 20px; /* Kích thước chữ tiêu đề là 24px */
-    color: #2c2b2b; /* Màu chữ là màu xám đậm */
-    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
-    text-align: center; /* Căn giữa tiêu đề */
+.hourly-forecast h2 {
+    font-size: 20px; 
+    color: #2c2b2b; 
+    margin-bottom: 20px; 
+    text-align: center; 
 }
 .hourly-scroll {
     display: flex; 
@@ -183,7 +169,6 @@ body{
     border-radius: 10px; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }
-
 .hourly-scroll .hour {
     flex: 0 0 auto; 
     background: rgba(255, 255, 255, 0.1); 
@@ -193,167 +178,133 @@ body{
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
     width: 70px; 
 }
-
 .hourly-scroll .hour img {
     width: 40px; 
     margin: 5px 0; 
 }
-
 .hourly-scroll .hour p {
     font-size: 14px; 
     margin: 5px 0; 
     color :#040404
 }
-
-/* Main container for 7-day forecast */
 .five-day-forecast {
-    width: 100%; /* Chiều rộng 100% so với phần tử cha */
-    margin-top: 20px; /* Khoảng cách từ phần tử phía trên */
-    background-color: rgba(255, 255, 255, 0.1); /* Màu nền xám nhạt cho container */
-    padding: 20px; /* Khoảng đệm bên trong container */
-    border-radius: 10px; /* Bo góc tròn với bán kính 10px */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ phía dưới container để tạo chiều sâu */
-    display: flex; /* Sử dụng Flexbox để bố trí các phần tử con */
-    flex-direction: column; /* Các phần tử con sẽ xếp chồng lên nhau theo chiều dọc */
-    align-items: center; /* Căn giữa các phần tử con theo chiều ngang */
-    overflow-x: auto;
-    
-    
+    width: 100%; 
+    margin-top: 20px; 
+    background-color: rgba(255, 255, 255, 0.1); 
+    padding: 20px;
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    overflow-x: auto;  
 }
-
-/* Title for the forecast box */
 .five-day-forecast h2 {
-    font-size: 20px; /* Kích thước chữ tiêu đề là 24px */
-    color: #2c2b2b; /* Màu chữ là màu xám đậm */
-    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
-    text-align: center; /* Căn giữa tiêu đề */
+    font-size: 20px;
+    color: #2c2b2b; 
+    margin-bottom: 20px; 
+    text-align: center; 
 }
-
-/* Scrollable container for the 7-day forecast */
 .five-day-scroll {
-    display: flex; /* Dùng Flexbox để các phần tử con sắp xếp theo chiều ngang */
-    overflow-x: auto; /* Cho phép cuộn ngang khi nội dung quá rộng */
+    display: flex; 
+    overflow-x: auto; 
     overflow-y: auto;
-    gap: 10px; /* Khoảng cách giữa các phần tử ngày */
-    padding-bottom: 20px; /* Khoảng cách ở dưới cùng của container */
+    gap: 10px; 
+    padding-bottom: 20px; 
 }
-
-/* Individual day block */
 .five-day-scroll .day {
-    background-color: rgba(255, 255, 255, 0.1); /* Màu nền trắng cho mỗi phần tử ngày */
-    padding: 10px; /* Khoảng đệm bên trong mỗi phần tử ngày */
-    border-radius: 10px; /* Bo góc tròn cho các phần tử ngày */
-    min-width: 120px; /* Đặt chiều rộng tối thiểu cho mỗi phần tử ngày */
-    text-align: center; /* Căn giữa nội dung bên trong phần tử ngày */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ cho các phần tử ngày */
-    flex-shrink: 0; /* Không cho phép phần tử này thu nhỏ khi không gian chật */
-    transition: transform 0.3s ease; /* Hiệu ứng chuyển động khi hover vào phần tử */
+    background-color: rgba(255, 255, 255, 0.1); 
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 120px;
+    text-align: center; 
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+    flex-shrink: 0; 
+    transition: transform 0.3s ease; 
 }
-
 .five-day-scroll .day:hover {
-    transform: scale(1.05); /* Tăng kích thước phần tử khi hover vào */
+    transform: scale(1.05);
 }
-
-/* Weather icon styling */
 .five-day-scroll .day img {
-    width: 50px; /* Kích thước chiều rộng của biểu tượng thời tiết */
-    height: 50px; /* Kích thước chiều cao của biểu tượng thời tiết */
-    margin-bottom: 10px; /* Khoảng cách dưới biểu tượng */
+    width: 50px;
+    height: 50px; 
+    margin-bottom: 10px; 
 }
-
-/* Day name and temperature styling */
 .five-day-scroll .day p {
-    margin: 5px 0; /* Khoảng cách trên/dưới mỗi đoạn văn */
-    font-size: 14px; /* Kích thước chữ là 14px */
-    color: #090909; /* Màu chữ xám */
+    margin: 5px 0; 
+    font-size: 14px;
+    color: #090909; 
 }
-
-/* Max/Min temperature display */
 .five-day-scroll .day p.temp {
-    font-size: 16px; /* Kích thước chữ cho nhiệt độ tối đa/tối thiểu là 16px */
-    font-weight: bold; /* In đậm chữ */
-    color: #030303; /* Màu chữ là màu xám đậm */
+    font-size: 16px; 
+    font-weight: bold; 
+    color: #030303; 
 }
-
-/* Responsive design - ensure the layout adapts on small screens */
 @media (max-width: 600px) {
     .five-day-scroll {
-        flex-wrap: wrap; /* Cho phép các phần tử ngày bọc xuống dòng khi không đủ không gian */
-        justify-content: center; /* Căn giữa các phần tử ngày khi bọc xuống dòng */
+        flex-wrap: wrap;
+        justify-content: center; 
     }
-
     .five-day-scroll .day {
-        min-width: 90px; /* Giảm chiều rộng tối thiểu cho mỗi phần tử ngày trên màn hình nhỏ */
+        min-width: 90px; 
     }
 }
-
-/* Weather Details Section */
 .weather-details {
-    display: grid;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.1); /* Màu nền trắng hiện đại */
-    border-radius: 15px;
-    margin: 20px 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Đổ bóng nhẹ */
+    background-color: rgba(255, 255, 255, 0.1); 
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-top: 20px; 
 }
-
 .weather-details h2 {
-    font-size: 20px; /* Kích thước chữ tiêu đề là 24px */
-    color: #181717; /* Màu chữ là màu xám đậm */
-    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+    font-size: 20px; 
+    color: #181717; 
+    margin-bottom: 20px; 
     text-align: center; 
     font-weight: 600;
     border-bottom: 1px solid #4d4e4f;
     padding-bottom: 10px;
 }
-
-/* Chi tiết từng mục */
 .details-grid {
     display: grid;
-    grid-template-columns: repeat(1, 1fr); /* 2 cột */
-    gap: 15px; /* Khoảng cách giữa các ô */
+    grid-template-columns: repeat(1, 1fr);
+    gap: 15px; 
 }
-
 .detail {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    background-color: rgba(255, 255, 255, 0.1); /* Nền xám nhạt */
+    background-color: rgba(255, 255, 255, 0.1); 
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .detail:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-
 .detail i {
     font-size: 24px;
-    color: #103667; /* Xanh iOS */
+    color: #103667; /
     margin-right: 10px;
 }
-
 .detail .label {
     font-size: 14px;
     color: #070707;
     margin-bottom: 5px;
     font-weight: 500;
 }
-
 .detail .value {
     font-size: 16px;
     font-weight: 600;
     color: #333333;
 }
-
-/* Map Container (Tùy chọn nếu hiển thị bản đồ) */
 .detail .map {
     width: 100%;
     height: 200px;
-    background: #e9ecef; /* Placeholder màu xám */
+    background: #e9ecef;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -362,9 +313,6 @@ body{
     color: #666666;
     text-align: center;
 }
-
-
-
 .not-found {
     position: absolute; 
     top: 0; 
@@ -373,51 +321,41 @@ body{
     text-align: center; 
     margin-top: 110px; 
 }
-
 .not-found img {
-    width: 65%; /* Đặt chiều rộng của ảnh là 65% container cha */
+    width: 65%; 
 }
-
 .not-found p {
-    font-size: 22px; /* Kích thước font chữ */
-    font-weight: 500; /* Độ đậm chữ vừa phải */
-    margin-top: -30px; /* Khoảng cách phía trên là -30px (kéo lên gần phần tử trên) */
-    color: #9FB6CD; /* Màu chữ xanh nhạt */
+    font-size: 22px; 
+    font-weight: 500; 
+    margin-top: -30px; 
+    color: #9FB6CD;
 }
-
 .city-hide {
-    display: none; /* Ẩn hoàn toàn phần tử này */
+    display: none; 
 }
-
 #hourly-forecast-container {
-    visibility: hidden; /* Ẩn container (không hiển thị nhưng chiếm diện tích) */
-    opacity: 0; /* Đặt độ mờ là 0 (trong suốt) */
-    transition: visibility 0.3s, opacity 0.3s ease-in-out; /* Hiệu ứng chuyển đổi trạng thái trong 0.3 giây */
+    visibility: hidden;
+    opacity: 0; 
+    transition: visibility 0.3s, opacity 0.3s ease-in-out; 
 }
-
 #hourly-forecast-container.active {
-    visibility: visible; /* Hiển thị container */
-    opacity: 1; /* Đặt độ mờ là 1 (hiển thị hoàn toàn) */
+    visibility: visible; 
+    opacity: 1; 
 }
-
-
 #clone-info-weather {
-    position: absolute; /* Đặt vị trí tuyệt đối */
-    transform: translateY(-100%); /* Ẩn bằng cách đẩy lên trên 100% chiều cao */
+    position: absolute; 
+    transform: translateY(-100%); 
 }
-
 #clone-info-weather .weather {
-    transform: translateY(120%); /* Đẩy xuống dưới 120% chiều cao */
-    transition: transform 1s ease, opacity 0s; /* Hiệu ứng dịch chuyển trong 1 giây */
-    transition-delay: 0s, 2s; /* Đặt độ trễ cho hiệu ứng */
+    transform: translateY(120%); 
+    transition: transform 1s ease, opacity 0s; 
+    transition-delay: 0s, 2s;
 }
-
 .weather-box:not(.active) #clone-info-weather .weather {
-    opacity: 0; /* Ẩn hoàn toàn nội dung */
-    transition-delay: 0s; /* Không có độ trễ */
+    opacity: 0; 
+    transition-delay: 0s;
 }
-
 .active-clone#clone-info-weather .weather {
-    transform: translateY(0%); /* Hiển thị bằng cách đặt lại vị trí ban đầu */
+    transform: translateY(0%); 
 }
 

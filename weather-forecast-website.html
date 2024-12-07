@@ -10,21 +10,17 @@
 </head>
 <body>
     <div class="video-background">
-
         <video autoplay loop muted playsinline>
             <source src="/Users/vanluu/Downloads/136959-765457947_medium.mp4" type="video/mp4">
         </video>
     </div>
-
     <div class="container">
         <div class="search-box">
             <i class='bx bx-map'></i> 
             <input type="text" placeholder=" enter your location ^3^">
             <button class="bx bx-search-alt"></button>
         </div>
-         <!-- City Name -->
         <p class="city-hide"> city hide</p>
-        <!-- Current Weather Box / hôpj thòi tiết hiện tại-->
         <div class="weather-box">
             <div class="box">
                 <div class="info-weather">
@@ -36,7 +32,6 @@
                 </div>
             </div>
         </div>
-        <!-- thoi tiet trong 24h-->
         <div class="hourly-forecast">
             <h2>24-hour Weather Forecast</h2>
             <div id="hourly-forecast-container" class="hourly-scroll"></div>
@@ -46,60 +41,49 @@
             <h2>5 Day Weather Forecast</h2>
             <div id="five-day-container" class="five-day-scroll"></div>
         </div>
-        
-<!-- Weather Details  -->
         <div class="weather-details">
             <h2>Weather Details</h2>
             <div class="details-grid">
-                <!-- Feels Like -->
                 <div class="detail">
                     <i class='bx bxs-thermometer'></i>
                     <p class="label">Feels Like</p>
                     <p class="value" id="feels-like">0°C</p>
                 </div>
-                <!-- Humidity -->
                 <div class="detail">
                     <i class='bx bx-water'></i>
                     <p class="label">Humidity</p>
                     <p class="value" id="humidity">0%</p>
                 </div>
-                <!-- Cloudiness -->
                 <div class="detail">
                     <i class='bx bx-cloud'></i>
                     <p class="label">Cloudiness</p>
                     <p class="value" id="cloudiness">0%</p>
                 </div>
-                <!-- Visibility -->
                 <div class="detail">
                     <i class='bx bx-binoculars'></i>
                     <p class="label">Visibility</p>
                     <p class="value" id="visibility">0 km</p>
                 </div>
-        <!-- Precipitation Map -->
                 <div class="detail">
                     <i class='bx bx-umbrella'></i>
                     <p class="label">Precipitation</p>
                     <div class="map" id="precipitation-map"></div>
                 </div>
-        <!-- Pressure Map -->
                 <div class="detail">
                     <i class='bx bx-trending-up'></i>
                     <p class="label">Pressure</p>
                     <div class="map" id="pressure-map"></div>
                 </div>
-        <!-- Wind Speed -->
                 <div class="detail">
                     <i class='bx bx-wind'></i>
                     <p class="label">Wind Speed</p>
                     <div class="map" id="wind-speed-map"></div>
                 </div>
-        <!-- Temperature Map -->
                 <div class="detail">
                     <i class='bx bxs-thermometer'></i>
                     <p class="label">Temperature</p>
                     <div class="map" id="temperature-map"></div>
                 </div>
-        <!-- Air Pollution -->
                 <div class="detail">
                     <i class='bx bx-smog'></i>
                     <p class="label">Air Pollution</p>
@@ -107,7 +91,6 @@
                 </div>
             </div>
         </div>
-
         <div class="not-found">
             <div class="box">
                 <img src="/Users/vanluu/Downloads/—Pngtree—error 404 page not found_6681621.png">
@@ -115,8 +98,6 @@
             </div>
         </div>
     </div>
-
-
     <script src="/Users/vanluu/weather forecast website/weather-forecast-website/weather-forecast-website .js"></script>
 </body>
 </html>
