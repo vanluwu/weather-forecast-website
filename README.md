@@ -13,7 +13,7 @@ The **Weather Forecast Website** is a visually appealing and interactive platfor
 
 2. **Dynamic Video Background**  
    - An immersive video background enhances the visual appeal of the website.
-![video background](https://drive.google.com/file/d/14ASAuEh7QLjp3P_DreuKxOqXJ5OvxktA/view?usp=drive_link)
+[video background](./136959-765457947_medium.mp4))
 3. **Current Weather Details**  
    - Displays:
      - Temperature
