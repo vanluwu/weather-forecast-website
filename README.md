@@ -41,6 +41,11 @@ The **Weather Forecast Website** is a visually appealing and interactive platfor
 7. **Error Handling**  
    - Displays a user-friendly "Error 404" page if an invalid city is entered.
      ![video background]
+---
+
+## **Website**
+You can access the live demo of the **Weather Forecast Website** at:  
+[Weather Forecast Website Live Demo](https://vanluwu.github.io/weather-forecast-website/)
 
 ---
 
