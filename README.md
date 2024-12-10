@@ -18,8 +18,6 @@ The **Weather Forecast Website** is a visually appealing and interactive platfor
    - Displays:
      - Temperature
      - Weather description
-     - Humidity
-     - Feels-like temperature  
    - Weather icons dynamically change based on current conditions.
 
 4. **24-Hour Weather Forecast**  
@@ -128,19 +126,3 @@ You can access the live demo of the **Weather Forecast Website** at:
 ### **Error Page**
 ![IMG_0272](https://github.com/user-attachments/assets/e15f93ce-06dc-4c70-b0ad-c9b0a6df67d8)
 
----
-
-## **Known Issues**
-- **Network Error Handling**: The site does not provide fallback data if the API is unreachable.
-- **API Rate Limits**: Users may experience delays if the API's free tier limit is exceeded.
-
----
-
-## **Future Enhancements**
-1. Add **geolocation functionality** to automatically fetch the user's weather information.
-2. Optimize the design for **smaller screens** to improve accessibility.
-3. Improve **error messages** to be more user-friendly.
-
----
-
-**Weather Forecast Website** – Your comprehensive weather companion!
