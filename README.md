@@ -13,7 +13,7 @@ The **Weather Forecast Website** is a visually appealing and interactive platfor
 
 2. **Dynamic Video Background**  
    - An immersive video background enhances the visual appeal of the website.
-[video background](./136959-765457947_medium.mp4))
+[video background](./136959-765457947_medium.mp4)
 3. **Current Weather Details**  
    - Displays:
      - Temperature
@@ -113,19 +113,22 @@ You can access the live demo of the **Weather Forecast Website** at:
 ## **Screenshots**
 
 ### **Homepage**
-![Homepage Screenshot](https://via.placeholder.com/800x400.png?text=Homepage)
+![Homepage Screenshot](/Users/vanluu/Downloads/ghhg/IMG_0266.jpg)
 
 ### **24-Hour Weather Forecast**
-![24-Hour Forecast Screenshot](https://via.placeholder.com/800x400.png?text=24-Hour+Forecast)
+![24-Hour Forecast Screenshot](/Users/vanluu/Downloads/ghhg/IMG_0270.jpg)
 
 ### **5-Day Weather Forecast**
-![5-Day Forecast Screenshot](https://via.placeholder.com/800x400.png?text=5-Day+Forecast)
+![5-Day Forecast Screenshot](/Users/vanluu/Downloads/ghhg/IMG_0269.jpg)
 
 ### **Weather Details**
-![Weather Details Screenshot](https://via.placeholder.com/800x400.png?text=Weather+Details)
+![Weather Details Screenshot](/Users/vanluu/Downloads/ghhg/IMG_0265.jpg)
+![Weather Details Screenshot](/Users/vanluu/Downloads/ghhg/IMG_0267.jpg)
+![Weather Details Screenshot](/Users/vanluu/Downloads/ghhg/IMG_0268.jpg)
+![Weather Details Screenshot](/Users/vanluu/Downloads/ghhg/IMG_0271.jpg)
 
 ### **Error Page**
-![Error Page Screenshot](https://via.placeholder.com/800x400.png?text=Error+Page)
+![Error Page Screenshot](/Users/vanluu/Downloads/ghhg/IMG_0272.jpg)
 
 ---
 
