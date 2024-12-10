@@ -86,7 +86,7 @@ function fetchFiveDayForecast(lat, lon) {
         })
         .catch(error => console.error("Error fetching 5-day forecast data:", error));
 }
-// map
+
 function fetchWeatherMap(lat, lon, layer, elementId) {
     const mapContainer = document.getElementById(elementId);
     const APIKey = '5bd89646c870f9448fb8dc8539d991c6';
