@@ -165,10 +165,6 @@ search.addEventListener('click', () =>{
             fiveDayForecast.classList.add('active');
             error404.classList.remove('active');
 
-            setTimeout(() => {
-                container.classList.remove('active');
-            }, 2500);
-
             const icon = json.weather[0].icon;
             image.src = `http://openweathermap.org/img/wn/${icon}@2x.png`;
 
